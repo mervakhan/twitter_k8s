@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tweet-microservice-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tweet-microservice
+  template:
+    metadata:
+      labels:
+        app: tweet-microservice
+    spec:
+      containers:
+      - name: tweet-microservice
+        image: merva1998/be:latest  # Updated Docker image tag with new repository name
+        ports:
+        - containerPort: 80
