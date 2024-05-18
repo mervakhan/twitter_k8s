@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: tweet-microservice
-        image: merva1998/tweet-microservice:latest  # Updated Docker image tag with new repository name
+        image: merva1998/tweetmicroservice:latest  # Updated Docker image tag with new repository name
         ports:
         - containerPort: 80
