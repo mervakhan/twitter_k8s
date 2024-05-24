@@ -8,15 +8,15 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["TweetMicroservice/TweetMicroservice/TweetMicroservice.csproj", "TweetMicroservice/"]
-RUN dotnet restore "./TweetMicroservice.csproj"
+COPY ["TweetMicroservice/TweetMicroservice/TweetMicroservice.csproj", "TweetMicroservice/TweetMicroservice/"]
+RUN dotnet restore "./TweetMicroservice/TweetMicroservice/TweetMicroservice.csproj"
 COPY . .
-WORKDIR "/src/TweetMicroservice"
-RUN dotnet build "./TweetMicroservice.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/TweetMicroservice/TweetMicroservice"
+RUN dotnet build "./TweetMicroservice/TweetMicroservice.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./TweetMicroservice.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./TweetMicroservice/TweetMicroservice.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
