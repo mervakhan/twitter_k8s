@@ -51,7 +51,7 @@ jobs:
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
-        docker-compose push "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGE}:${IMAGE_TAG}"
+        docker push "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGE}:${IMAGE_TAG}"
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
