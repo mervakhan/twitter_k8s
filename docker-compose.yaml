@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  tweet_microservice:
+    build:
+      context: ./TweetMicroService/TweetMicroService # Ensure this is the correct context where your Dockerfile is located
+      dockerfile: Dockerfile # Ensure this is the correct Dockerfile path
+    ports:
+      - "7120:80"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
