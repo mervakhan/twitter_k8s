@@ -5,6 +5,11 @@ services:
     build:
       context: ./TweetMicroService/TweetMicroService # Ensure this is the correct context where your Dockerfile is located
       dockerfile: Dockerfile # Ensure this is the correct Dockerfile path
+      args:
+        - GITHUB_SHA=${GITHUB_SHA}
+        - GITHUB_REF=${GITHUB_REF}
+      tags:
+        - "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGE}:${IMAGE_TAG}"
     ports:
       - "7120:80"
     networks:
