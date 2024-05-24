@@ -8,12 +8,11 @@ services:
       args:
         - GITHUB_SHA=${GITHUB_SHA}
         - GITHUB_REF=${GITHUB_REF}
-      tags:
-        - "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGE}:${IMAGE_TAG}"
     ports:
       - "7120:80"
     networks:
       - mynetwork
+    image: "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGE}:${IMAGE_TAG}"
 
 networks:
   mynetwork:
