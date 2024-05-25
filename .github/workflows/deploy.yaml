@@ -55,12 +55,12 @@ jobs:
     # configure kubectl
     
     - name: Configure kubectl
-        run: |-
-          gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
+      run: |-
+        gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
 
     - name: Create Docker Registry Secret
-        run: |-
-          gcloud auth print-access-token | kubectl create secret docker-registry gcr-json-key \
+      run: |-
+        gcloud auth print-access-token | kubectl create secret docker-registry gcr-json-key \
             --docker-server=europe-west4-docker.pkg.dev \
             --docker-username=_json_key \
             --docker-password="$(gcloud auth print-access-token)" \
