@@ -43,6 +43,11 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
 
+    - name: Install gke-gcloud-auth-plugin
+      run: |
+        sudo apt-get update && sudo apt-get install -y google-cloud-sdk-gke-gcloud-auth-plugin
+      shell: bash
+      
     # Build the Docker image
     - name: Build
       run: |-
@@ -53,18 +58,18 @@ jobs:
       run: |-
         docker push "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGE}:${IMAGE_TAG}"
     # configure kubectl
-    
+
     - name: Configure kubectl
-        run: |-
+      run: |-
           gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
 
     - name: Create Docker Registry Secret
-        run: |-
-          gcloud auth print-access-token | kubectl create secret docker-registry gcr-json-key \
-            --docker-server=europe-west4-docker.pkg.dev \
-            --docker-username=_json_key \
-            --docker-password="$(gcloud auth print-access-token)" \
-            --docker-email=mervakhan0786@gmail.com || true  # Add '|| true' to ignore error if secret already exists
+      run: |-
+        gcloud auth print-access-token | kubectl create secret docker-registry gcr-json-key \
+          --docker-server=europe-west4-docker.pkg.dev \
+          --docker-username=_json_key \
+          --docker-password="$(gcloud auth print-access-token)" \
+          --docker-email=mervakhan0786@gmail.com || true  # Add '|| true' to ignore error if secret already exists
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
