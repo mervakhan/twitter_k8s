@@ -1,22 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: tweetmicro-service-development
-    labels:
-        app: tweetmicro-service
+  name: tweetmicro-service-development
+  labels:
+    app: tweetmicro-service
 spec:
-    replicas: 3
-    selector:
-        matchLabels:
-            app: tweetmicro-service
-    template:
-        metadata:
-            labels:
-                app: tweetmicro-service
-        spec:
-            containers:
-                - name: tweetmicro-service
-                  image: kwetter-repo/kwetter
-                  imagePullPolicy: Always
-                  ports:
-                   - containerPort: 80
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tweetmicro-service
+  template:
+    metadata:
+      labels:
+        app: tweetmicro-service
+    spec:
+      containers:
+        - name: tweetmicro-service
+          image: europe-west4-docker.pkg.dev/centered-song-423220-i0/kwetter-repo/kwetter:kwetterlatest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: gcr-json-key
