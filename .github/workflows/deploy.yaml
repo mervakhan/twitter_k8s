@@ -32,7 +32,7 @@ jobs:
 
     - name: build and push the docker image
       env:
-        GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
+        GOOGLE_PROJECT: ${{ secrets.GKE_PROJECT }}
       run: |
         gcloud auth configure-docker europe-west1-docker.pkg.dev
         docker-compose build
