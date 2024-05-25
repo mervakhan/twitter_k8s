@@ -15,59 +15,34 @@ env:
   GAR_REPO: kwetter-repo # artifact registry repository
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  deploy:
     runs-on: ubuntu-latest
-    environment: production
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
 
-    # Setup gcloud CLI
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
+    - name: code checkout
+      uses: actions/checkout@v2
+
+    - name: install the gcloud cli
+      uses: google-github-actions/setup-gcloud@v0
       with:
-        credentials_json: '${{ secrets.GKE_SA_KEY }}'
+        project_id: ${PROJECT_ID}
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        install_components: 'gke-gcloud-auth-plugin'
+        export_default_credentials: true
 
-    # Configure Docker to use the gcloud command-line tool as a credential
-    # helper for authentication
-    - name: Docker configuration
-      run: |-
-        gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://$GAR_ZONE-docker.pkg.dev
-
-    # Get the GKE credentials so we can deploy to the cluster
-    - name: Set up GKE credentials
-      uses: google-github-actions/get-gke-credentials@v0
-      with:
-        cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
-
-    # Build the Docker image
-    - name: Build
-      run: |-
+    - name: build and push the docker image
+      env:
+        GOOGLE_PROJECT: ${PROJECT_ID}
+      run: |
+        gcloud auth configure-docker ${GKE_ZONE}-docker.pkg.dev
         docker-compose build
-      shell: bash
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |-
-        docker push "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGE}:${IMAGE_TAG}"
-    # configure kubectl
+        docker-compose push
 
-    - name: Configure kubectl
-      run: |-
-        gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
-
-    - name: Create Docker Registry Secret
-      run: |-
-        gcloud auth print-access-token | kubectl create secret docker-registry gcr-json-key \
-            --docker-server=europe-west4-docker.pkg.dev \
-            --docker-username=_json_key \
-            --docker-password="$(gcloud auth print-access-token)" \
-            --docker-email=mervakhan0786@gmail.com || true  # Add '|| true' to ignore error if secret already exists
-
-    # Deploy the Docker image to the GKE cluster
-    - name: Deploy
-      run: |-
+    - name: deploy to gke
+      env:
+        GOOGLE_PROJECT: ${PROJECT_ID}
+      run: |
+        gcloud container clusters get-credentials ${GKE_CLUSTER} --region ${GKE_ZONE}
+        sed -i "s/GOOGLE_PROJECT/${PROJECT_ID}/g" k8s/
         kubectl apply -f k8s/
         kubectl get pods
