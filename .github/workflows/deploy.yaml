@@ -61,15 +61,15 @@ jobs:
 
     - name: Configure kubectl
       run: |-
-          gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
+        gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
 
     - name: Create Docker Registry Secret
       run: |-
         gcloud auth print-access-token | kubectl create secret docker-registry gcr-json-key \
-          --docker-server=europe-west4-docker.pkg.dev \
-          --docker-username=_json_key \
-          --docker-password="$(gcloud auth print-access-token)" \
-          --docker-email=mervakhan0786@gmail.com || true  # Add '|| true' to ignore error if secret already exists
+            --docker-server=europe-west4-docker.pkg.dev \
+            --docker-username=_json_key \
+            --docker-password="$(gcloud auth print-access-token)" \
+            --docker-email=mervakhan0786@gmail.com || true  # Add '|| true' to ignore error if secret already exists
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
