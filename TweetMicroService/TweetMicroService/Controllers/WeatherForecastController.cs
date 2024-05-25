@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using TweetMicroService.DbContexts;
+using TweetMicroService.Entities;
 
 namespace TweetMicroService.Controllers
 {
@@ -6,6 +8,8 @@ namespace TweetMicroService.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly UserContext _context;
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -13,19 +17,23 @@ namespace TweetMicroService.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, UserContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            var UserId = _context.Users.FirstOrDefault().Id;
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)],
+                UserId = UserrId
             })
             .ToArray();
         }
