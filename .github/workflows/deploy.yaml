@@ -53,12 +53,19 @@ jobs:
       run: |-
         docker push "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGE}:${IMAGE_TAG}"
     
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+          version: 'latest'
+          project_id: ${{ secrets.GKE_PROJECT }}
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+
     - name: Configure kubectl
-        run: |
+        run: |-
           gcloud container clusters get-credentials ${GKE_CLUSTER} --zone ${GKE_ZONE} --project ${PROJECT_ID}
 
     - name: Create Docker Registry Secret
-        run: |
+        run: |-
           gcloud auth print-access-token | kubectl create secret docker-registry gcr-json-key \
             --docker-server=europe-west4-docker.pkg.dev \
             --docker-username=_json_key \
