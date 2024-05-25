@@ -43,11 +43,6 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
 
-    - name: Install gke-gcloud-auth-plugin
-      run: |
-        sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
-      shell: bash
-      
     # Build the Docker image
     - name: Build
       run: |-
