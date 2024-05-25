@@ -43,7 +43,7 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
 
-     - name: Install gke-gcloud-auth-plugin
+    - name: Install gke-gcloud-auth-plugin
        run: |
         gcloud components install gke-gcloud-auth-plugin
       shell: bash
