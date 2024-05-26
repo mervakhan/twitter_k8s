@@ -26,14 +26,14 @@ namespace TweetMicroService.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            var UserId = _context.Users.FirstOrDefault().Id;
+            //var UserId = _context.Users.FirstOrDefault().Id;
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)],
-                UserId = UserId
+                //UserId = UserId
             })
             .ToArray();
         }
