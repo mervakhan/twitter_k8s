@@ -12,7 +12,7 @@ services:
       - "7120:80"
     networks:
       - mynetwork
-    image: "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGE}:${IMAGE_TAG}"
+    image: "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGE}:latest"
 
 networks:
   mynetwork:
