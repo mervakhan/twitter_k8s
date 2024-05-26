@@ -14,7 +14,6 @@ spec:
       labels:
         app: tweetmicro-service
     spec:
-      terminationGracePeriodSeconds: 30
       containers:
         - name: tweetmicro-service
           image: europe-west4-docker.pkg.dev/centered-song-423220-i0/kwetter-repo/kwetter:latest
