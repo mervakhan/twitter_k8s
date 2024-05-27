@@ -32,7 +32,7 @@ namespace TweetMicroService.Controllers
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = "Updated "+ Summaries[Random.Shared.Next(Summaries.Length)],
+                Summary = "Updated2"+ Summaries[Random.Shared.Next(Summaries.Length)],
                 UserId = UserId
             })
             .ToArray();
