@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TweetMicroService.DbContexts;
 using TweetMicroService.Entities;
@@ -24,6 +25,7 @@ namespace TweetMicroService.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
             var UserId = _context.Users.FirstOrDefault().Id;

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauthmicro-service-development
+  labels:
+    app: oauthmicro-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauthmicro-service
+  template:
+    metadata:
+      labels:
+        app: oauthmicro-service
+    spec:
+      containers:
+        - name: oauthmicro-service
+          image: europe-west4-docker.pkg.dev/centered-song-423220-i0/kwetter-repo/kwetteroauth:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
