@@ -20,3 +20,17 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oauthmicro-service-loadbalancer
+spec:
+  selector:
+    app: oauthmicro-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
