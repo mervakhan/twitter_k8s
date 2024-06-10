@@ -25,7 +25,6 @@ namespace TweetMicroService.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
             var UserId = _context.Users.FirstOrDefault().Id;
