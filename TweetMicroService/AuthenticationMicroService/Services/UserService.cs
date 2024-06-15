@@ -17,7 +17,7 @@ namespace AuthenticationMicroService.Services
             _userContext = userContext;
         }
 
-        private string _secretKey = "kweeterOAuthSecretKey";
+        private string _secretKey = "kweeterOAuthSecretKey!!!Secret~~!!!Key***";
 
         public User Authenticate(string username, string password)
         {
