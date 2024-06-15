@@ -85,5 +85,5 @@ jobs:
             "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
           fi
           done
-          kubectl apply -f k8s/
+          kubectl apply -f k8s/ --force
           kubectl get pods
