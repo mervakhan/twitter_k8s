@@ -81,7 +81,8 @@ jobs:
           for file in k8s/*.yaml; do
           if [ -f "$file" ]; then
             deployment_name=$(kubectl get -f "$file" -o=jsonpath='{.metadata.name}')
-            kubectl patch deployment "$deployment_name" -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"$(date +'%s')\"}}}}}"
+            kubectl patch deployment "$deployment_name" -p \
+            "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
           fi
           done
           kubectl apply -f k8s/
