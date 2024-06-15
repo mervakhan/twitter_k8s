@@ -78,12 +78,9 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |
-          for file in k8s/*.yaml; do
-          if [ -f "$file" ]; then
-            deployment_name=$(kubectl get -f "$file" -o=jsonpath='{.metadata.name}')
-            kubectl patch deployment "$deployment_name" -p \
-            "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
-          fi
-          done
+          kubectl patch deployment tweetmicro-service-development -p \
+          "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
+          kubectl patch deployment oauthmicro-service-development -p \
+          "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
           kubectl apply -f k8s/ --force
           kubectl get pods
