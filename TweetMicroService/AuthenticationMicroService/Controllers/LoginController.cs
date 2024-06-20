@@ -1,5 +1,6 @@
 using AuthenticationMicroService.Models;
 using AuthenticationMicroService.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthenticationMicroService.Controllers
@@ -27,6 +28,13 @@ namespace AuthenticationMicroService.Controllers
 
             var token = _userService.GenerateJwtToken(authenticatedUser);
             return Ok(new { Token = token });
+        }
+
+        [Authorize]
+        [HttpGet("secure")]
+        public IActionResult Secure()
+        {
+            return Ok("Authorized");
         }
     }
 }
