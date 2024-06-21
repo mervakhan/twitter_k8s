@@ -5,6 +5,7 @@ using TweetMicroService.Entities;
 
 namespace TweetMicroService.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -38,6 +39,13 @@ namespace TweetMicroService.Controllers
                 UserId = UserId
             })
             .ToArray();
+        }
+
+        [Authorize]
+        [HttpGet("secure")]
+        public IActionResult Secure()
+        {
+            return Ok("Authorized");
         }
     }
 }
