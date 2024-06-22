@@ -30,11 +30,10 @@ namespace AuthenticationMicroService.Controllers
             return Ok(new { Token = token });
         }
 
-        [Authorize]
-        [HttpGet("secure")]
-        public IActionResult Secure()
+        [HttpGet("signup")]
+        public HttpResponseMessage SignUp([FromBody] User user)
         {
-            return Ok("Authorized");
+            return _userService.SignUp(user);
         }
     }
 }

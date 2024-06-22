@@ -3,13 +3,13 @@ using TweetMicroService.Entities;
 
 namespace TweetMicroService.DbContexts
 {
-    public class UserContext : DbContext
+    public class TweetsContext : DbContext
     {
-        public UserContext(DbContextOptions<UserContext> options) : base(options)
+        public TweetsContext(DbContextOptions<UserContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Tweet> Tweets { get; set; }
     }
 }

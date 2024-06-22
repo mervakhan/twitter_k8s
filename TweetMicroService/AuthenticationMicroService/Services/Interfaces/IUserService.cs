@@ -6,5 +6,6 @@ namespace AuthenticationMicroService.Services.Interfaces
     {
         User Authenticate(string username, string password);
         string GenerateJwtToken(User user);
+        HttpResponseMessage SignUp(User user);
     }
 }
