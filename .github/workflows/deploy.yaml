@@ -78,5 +78,9 @@ jobs:
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |
+          kubectl patch deployment tweetmicro-service-development -p \
+          "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
+          kubectl patch deployment oauthmicro-service-development -p \
+          "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
           kubectl apply -f k8s/ --force
           kubectl get pods
