@@ -13,12 +13,12 @@ namespace TweetMicroService.Services
             _tweetsContext = tweetsContext;
         }
 
-        public void CreateTweet(User user, string message)
+        public void CreateTweet(Guid userId, string message)
         {
             var tweet = new Tweet()
             {
                 TweetText = message,
-                User = user
+                UserId = userId
             };
             _tweetsContext.Tweets.Add(tweet);
             _tweetsContext.SaveChanges();

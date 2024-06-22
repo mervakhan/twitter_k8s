@@ -59,8 +59,7 @@ namespace TweetMicroService.Controllers
             var userIdFromClaim = User.Claims.First(n => n.Type == "UserId")?.Value;
             if (Guid.TryParse(userIdFromClaim, out Guid userId))
             {
-                var user = _userService.GetUser(userId);
-                 _tweetService.CreateTweet(user, message);
+                 _tweetService.CreateTweet(userId, message);
                 return Ok();
             };
             return Unauthorized();
@@ -73,8 +72,7 @@ namespace TweetMicroService.Controllers
             var userIdFromClaim = User.Claims.First(n => n.Type == "UserId")?.Value;
             if (Guid.TryParse(userIdFromClaim, out Guid userId))
             {
-                var user = _userService.GetUser(userId);
-                _commentService.CreateComment(user,comment.Tweet, comment.CommentText);
+                _commentService.CreateComment(userId, comment.TweetId, comment.CommentText);
                 return Ok();
             };
             return Unauthorized();

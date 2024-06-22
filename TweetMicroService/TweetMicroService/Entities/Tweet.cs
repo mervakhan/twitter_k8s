@@ -10,7 +10,7 @@ namespace TweetMicroService.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ID { get; set; }
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public Guid UserId { get; set; }
         public string TweetText { get; set; }
 
         public ICollection<Comment> Comments { get; set; }

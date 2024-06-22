@@ -13,13 +13,13 @@ namespace TweetMicroService.Services
             _commentsContext = commentsContext;
         }
 
-        public void CreateComment(User user, Tweet tweet, string message)
+        public void CreateComment(Guid userId, Guid tweetId, string message)
         {
             var comment = new Comment()
             {
                 CommentText = message,
-                User = user,
-                Tweet = tweet
+                UserId = userId,
+                TweetId = tweetId
             };
             _commentsContext.Comments.Add(comment);
             _commentsContext.SaveChanges();
@@ -27,7 +27,7 @@ namespace TweetMicroService.Services
 
         public List<Comment> Get(Guid tweetId)
         {
-            return _commentsContext.Comments.Where(c=> c.Tweet.ID == tweetId).ToList();
+            return _commentsContext.Comments.Where(c=> c.TweetId == tweetId).ToList();
         }
     }
 }
