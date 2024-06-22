@@ -26,7 +26,7 @@ namespace TweetMicroService.Controllers
             _commentService = commentService;
         }
 
-        [HttpGet]
+        [HttpGet("tweets")]
         [Authorize]
         public IActionResult Get()
         {
@@ -39,7 +39,7 @@ namespace TweetMicroService.Controllers
             return Unauthorized();        
         }
 
-        [HttpGet]
+        [HttpGet("comments")]
         [Authorize]
         public IActionResult GetComments([FromBody] Guid tweetId)
         {
@@ -52,7 +52,7 @@ namespace TweetMicroService.Controllers
             return Unauthorized();
         }
 
-        [HttpPost]
+        [HttpPost("createtweets")]
         [Authorize]
         public IActionResult CreateTweet([FromBody] string message)
         {
@@ -66,7 +66,7 @@ namespace TweetMicroService.Controllers
             return Unauthorized();
         }
 
-        [HttpPost]
+        [HttpPost("createcomments")]
         [Authorize]
         public IActionResult CreateComment([FromBody] Comment comment )
         {
