@@ -1,4 +1,5 @@
 using AuthenticationMicroService.DbContexts;
+using AuthenticationMicroService.SecretManager;
 using AuthenticationMicroService.Services;
 using AuthenticationMicroService.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -24,7 +25,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             {
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("kweeterOAuthSecretKey!!!Secret~~!!!Key***")), // Ensure this matches token creation
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretManager.GetSecretKey("OAuthSecretKey"))), // Ensure this matches token creation
                 ValidateIssuer = false,
                 ValidateAudience = false,
             };

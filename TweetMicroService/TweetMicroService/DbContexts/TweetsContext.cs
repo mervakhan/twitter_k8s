@@ -7,7 +7,6 @@ namespace TweetMicroService.DbContexts
     {
         public TweetsContext(DbContextOptions<TweetsContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public DbSet<Tweet> Tweets { get; set; }

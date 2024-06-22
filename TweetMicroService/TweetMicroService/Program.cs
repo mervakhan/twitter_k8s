@@ -5,14 +5,19 @@ using System.Text;
 using TweetMicroService.DbContexts;
 using TweetMicroService.Services;
 using TweetMicroService.Services.Interfaces;
+using TweetMicroService.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
+var dbPassword = SecretManager.GetSecretKey("SqlPassword");
+var conString = builder.Configuration.GetConnectionString("DefaultConnection");
+conString = string.Format(conString, dbPassword);
+
 builder.Services.AddDbContext<UserContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(conString));
 builder.Services.AddDbContext<TweetsContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(conString));
 builder.Services.AddDbContext<CommentsContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(conString));
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITweetService, TweetService>();
@@ -25,7 +30,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("kweeterOAuthSecretKey!!!Secret~~!!!Key***")), // Ensure this matches token creation
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretManager.GetSecretKey("OAuthSecretKey"))), // Ensure this matches token creation
                 ValidateIssuer = false,
                 ValidateAudience = false,
             };

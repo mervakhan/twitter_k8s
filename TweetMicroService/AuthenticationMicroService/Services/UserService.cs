@@ -20,8 +20,6 @@ namespace AuthenticationMicroService.Services
             _userContext = userContext;
         }
 
-        private string _secretKey = "kweeterOAuthSecretKey!!!Secret~~!!!Key***";
-
         public User Authenticate(string username, string password)
         {
             var user = _userContext.Users.SingleOrDefault(x => x.Username == username && x.Password == password);
@@ -39,7 +37,7 @@ namespace AuthenticationMicroService.Services
             {
                 new Claim("UserId", user.ID.ToString())
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretManager.SecretManager.GetSecretKey("OAuthSecretKey")));
             var token = new JwtSecurityToken(
                 claims: claims,
                 expires: DateTime.Now.AddDays(30),
