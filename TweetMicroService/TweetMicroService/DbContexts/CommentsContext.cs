@@ -5,7 +5,7 @@ namespace TweetMicroService.DbContexts
 {
     public class CommentsContext : DbContext
     {
-        public CommentsContext(DbContextOptions<UserContext> options) : base(options)
+        public CommentsContext(DbContextOptions<CommentsContext> options) : base(options)
         {
             Database.EnsureCreated();
         }

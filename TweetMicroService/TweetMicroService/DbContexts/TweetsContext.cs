@@ -5,7 +5,7 @@ namespace TweetMicroService.DbContexts
 {
     public class TweetsContext : DbContext
     {
-        public TweetsContext(DbContextOptions<UserContext> options) : base(options)
+        public TweetsContext(DbContextOptions<TweetsContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
