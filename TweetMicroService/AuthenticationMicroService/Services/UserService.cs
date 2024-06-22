@@ -61,7 +61,7 @@ namespace AuthenticationMicroService.Services
             }
             _userContext.Users.Add(user);
             _userContext.SaveChanges();
-            return CreateResponseMessage(true, "User created successfully");
+            return CreateResponseMessage(HttpStatusCode.Created, "User created successfully");
         }
 
         private HttpResponseMessage CreateResponseMessage(HttpStatusCode code, string message)
