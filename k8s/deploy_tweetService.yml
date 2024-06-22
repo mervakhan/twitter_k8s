@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tweetmicro-service-development
+  name: kweetmicro-service-development
   labels:
-    app: tweetmicro-service
+    app: kweetmicro-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tweetmicro-service
+      app: kweetmicro-service
   template:
     metadata:
       labels:
-        app: tweetmicro-service
+        app: kweetmicro-service
     spec:
       containers:
-        - name: tweetmicro-service
+        - name: kweetmicro-service
           image: europe-west4-docker.pkg.dev/centered-song-423220-i0/kwetter-repo/kwetter:latest
           imagePullPolicy: Always
           ports:
@@ -24,10 +24,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tweetmicro-service-loadbalancer
+  name: kweetmicro-service-loadbalancer
 spec:
   selector:
-    app: tweetmicro-service
+    app: kweetmicro-service
   ports:
     - protocol: TCP
       port: 80
