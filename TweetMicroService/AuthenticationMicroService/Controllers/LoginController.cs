@@ -30,7 +30,7 @@ namespace AuthenticationMicroService.Controllers
             return Ok(new { Token = token });
         }
 
-        [HttpGet("signup")]
+        [HttpPost("signup")]
         public HttpResponseMessage SignUp([FromBody] User user)
         {
             return _userService.SignUp(user);
