@@ -25,7 +25,7 @@ services:
     networks:
       - mynetwork
     image: "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGEOAuth}:latest"
-    react:
+  react:
     build:
       context: ./kweeter-frontend # Ensure this is the correct context where your Dockerfile is located
       dockerfile: Dockerfile # Ensure this is the correct Dockerfile path
