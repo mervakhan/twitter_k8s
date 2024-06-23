@@ -83,5 +83,7 @@ jobs:
           "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
           kubectl patch deployment oauthmicro-service-development -p \
           "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
+          kubectl patch deployment react-frontend-development -p \
+          "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
           kubectl apply -f k8s/ --force
           kubectl get pods

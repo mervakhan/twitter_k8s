@@ -33,7 +33,7 @@ services:
         - GITHUB_SHA=${GITHUB_SHA}
         - GITHUB_REF=${GITHUB_REF}
     ports:
-      - "7120:80"
+      - "3000:3000"
     networks:
       - mynetwork
     image: "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGEReact}:latest"
