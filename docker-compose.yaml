@@ -25,6 +25,18 @@ services:
     networks:
       - mynetwork
     image: "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGEOAuth}:latest"
+    react:
+    build:
+      context: ./kweeter-frontend # Ensure this is the correct context where your Dockerfile is located
+      dockerfile: Dockerfile # Ensure this is the correct Dockerfile path
+      args:
+        - GITHUB_SHA=${GITHUB_SHA}
+        - GITHUB_REF=${GITHUB_REF}
+    ports:
+      - "7120:80"
+    networks:
+      - mynetwork
+    image: "${GAR_ZONE}-docker.pkg.dev/${PROJECT_ID}/${GAR_REPO}/${IMAGEReact}:latest"
 networks:
   mynetwork:
     driver: bridge

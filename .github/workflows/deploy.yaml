@@ -11,6 +11,7 @@ env:
   GKE_ZONE: europe-west1   # cluster zone
   IMAGE: kwetter # image name
   IMAGEOAuth: kwetteroauth # image name
+  IMAGEReact: kwetterreact # image name
   IMAGE_TAG: kwetterlatest # image tag
   GAR_ZONE: europe-west4 # artifact registry zone
   GAR_REPO: kwetter-repo # artifact registry repository
